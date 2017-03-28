@@ -102,45 +102,25 @@ class LoginController: UIViewController, UICollectionViewDataSource, UICollectio
     
     //MARK: - LoginControllerDelegate
     func finishLoggingIn() {
-        let rootController = UIApplication.shared.keyWindow?.rootViewController
-        guard let mainNavController = rootController as? MainNavigationController  else {
-            return
+       
+        if UserDefaults.standard.isLoggedIn() {
+            
+            
+            let rootController = UIApplication.shared.keyWindow?.rootViewController
+            guard let mainNavController = rootController as? MainNavigationController  else {
+                return
+            }
+            mainNavController.viewControllers = [HomeController()]
+            
+            dismiss(animated: true, completion: nil)
         }
-        mainNavController.viewControllers = [HomeController()]
 
-        
-        /*
-        let url = URL(string: "https://contact.taxsee.com/Contacts.svc/Hello?login=test_user&password=test_pass")
-        
-        URLSession.shared.dataTask(with: url!) { (data, responce, error) in
-            if error != nil {
-                print("login or password is not valid")
-            }
-            
-            do {
-                guard let data = data else {return}
-                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String: Any]
-                
-                
-                let logged = Logged()
-                
-                logged.Success = json["Success"] as? Bool
-                
-                //  check autorization
-                
-                if logged.Success! {
-                    UserDefaults.standard.setIsLoggedIn(value: true)
-                }
-                    
-            } catch let jsonError {
-                 print(jsonError)
-            }
-            
-        }.resume() 
-         */
- 
-        dismiss(animated: true, completion: nil)
     }
+    
+    fileprivate func isLoggedIn() -> Bool {
+        return UserDefaults.standard.isLoggedIn()
+    }
+
 
     
 }

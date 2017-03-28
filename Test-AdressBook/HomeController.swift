@@ -13,7 +13,6 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       
         navigationItem.title = "Departments"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogout))
       

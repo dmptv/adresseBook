@@ -17,10 +17,8 @@ class ApiService: NSObject {
         let login = login
         let password = password
         
-        let url = URL(string: "https://contact.taxsee.com/Contacts.svc/Hello?login=t\(login)&password=\(password)")
-        
-        //let url = URL(string: "https://contact.taxsee.com/Contacts.svc/Hello?login=test_user&password=test_pass")
-        
+        let url = URL(string: "https://contact.taxsee.com/Contacts.svc/Hello?login=\(login)&password=\(password)")
+
         URLSession.shared.dataTask(with: url!) { (data, responce, error) in
             if error != nil {
                 print("login or password is not valid")

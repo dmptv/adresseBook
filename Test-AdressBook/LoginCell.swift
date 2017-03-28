@@ -19,7 +19,7 @@ class LoginCell: UICollectionViewCell {
     let loginTextfield: LeftPaddingTextfield = {
         let tf = LeftPaddingTextfield()
         tf.placeholder = "Enter login"
-        tf.keyboardType = .emailAddress
+        //tf.keyboardType = .emailAddress
         tf.textColor = .white
         tf.layer.borderColor = UIColor.lightGray.cgColor
         tf.layer.borderWidth = 1
@@ -47,21 +47,13 @@ class LoginCell: UICollectionViewCell {
     weak var delegate: LoginControllerDelegate?
     
     func handleLogin() {
+        guard let login = loginTextfield.text, let password = passwordTextfield.text else {return}
         
-        let login = loginTextfield.text
-        
-        
-        
-        ApiService.shared.fetchAutorization(login: <#T##String#>, password: <#T##String#>) { (successe) in
-            
-            
+        ApiService.shared.fetchAutorization(login: login, password: password) { (successe) in
+            print(successe)
+            UserDefaults.standard.setIsLoggedIn(value: successe)
+            self.delegate?.finishLoggingIn()
         }
-        
-        
-        
-        UserDefaults.standard.setIsLoggedIn(value: true)
-        
-        delegate?.finishLoggingIn()
     }
     
     override init(frame: CGRect) {
