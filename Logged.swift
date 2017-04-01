@@ -12,3 +12,8 @@ class Logged: NSObject {
     var Message: String?
     var Success: Bool?
 }
+
+struct LoginPassword {
+    var login: String?
+    var password: String?
+}

@@ -15,7 +15,8 @@ class MainNavigationController: UINavigationController {
        view.backgroundColor = .white
         
         if isLoggedIn() {
-            let homeController = HomeController()
+            let layout = UICollectionViewFlowLayout()
+            let homeController = HomeController(collectionViewLayout: layout)
             viewControllers = [homeController]
         } else {
             perform(#selector(showLoginController), with: nil, afterDelay: 0.1)

@@ -13,13 +13,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
         window?.rootViewController = MainNavigationController()
+        
+        // nav bar
+        UINavigationBar.appearance().barTintColor = UIColor(r: 0, g: 137, b: 149)
+        
+        // back bar button
+        UINavigationBar.appearance().barStyle = UIBarStyle.default
+        UINavigationBar.appearance().tintColor = UIColor(r: 91, g: 14, b: 13)
+        
+        // nav title
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor(r: 91, g: 14, b: 13)]
+
+        UIApplication.shared.statusBarStyle = .lightContent
 
         return true
     }
