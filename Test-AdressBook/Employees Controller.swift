@@ -12,6 +12,7 @@ class EmployeesController: UICollectionViewController, UICollectionViewDelegateF
     
     let employeesId = "employeesId"
     let headerId = "headerId"
+    
     let refresher = UIRefreshControl()
     
     var dataSource = [Employer]()
@@ -92,10 +93,8 @@ class EmployeesController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! EmployeesHeader
         header.nameLabel.text = office?.Name
-        
         return header
     }
         
@@ -104,6 +103,7 @@ class EmployeesController: UICollectionViewController, UICollectionViewDelegateF
         detailLauncher.showSettings()
     }
     
+ 
 
 }
 

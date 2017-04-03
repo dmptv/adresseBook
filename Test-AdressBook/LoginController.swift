@@ -28,7 +28,8 @@ class LoginController: UIViewController, UICollectionViewDataSource, UICollectio
     lazy var skipButton: UIButton = {
         let button = UIButton()
         button.setTitle("Skip", for: .normal)
-        button.setTitleColor(UIColor(colorLiteralRed: 247/255, green: 154/255, blue: 27/255, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.setTitleColor(loginColor, for: .normal)
         button.addTarget(self, action: #selector(skip), for: .touchUpInside)
         return button
     }()
@@ -68,7 +69,7 @@ class LoginController: UIViewController, UICollectionViewDataSource, UICollectio
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor(red: 122/255, green: 83/255, blue: 115/255, alpha: 1)
+        cv.backgroundColor = loginColor
         cv.isPagingEnabled = true 
         cv.dataSource = self
         cv.delegate = self
@@ -106,7 +107,7 @@ class LoginController: UIViewController, UICollectionViewDataSource, UICollectio
         registerCells()
     }
     
-    // KeyBoard
+    //MARK: - KeyBoard
     
     fileprivate func  observeKeyBoardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardShow), name: .UIKeyboardWillShow, object: nil)
@@ -135,8 +136,6 @@ class LoginController: UIViewController, UICollectionViewDataSource, UICollectio
         collectionView.register(LoginCell.self, forCellWithReuseIdentifier: loginCellId)
     }
     
-    
-
     //MARK: - UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -188,10 +187,10 @@ class LoginController: UIViewController, UICollectionViewDataSource, UICollectio
     func finishLoggingIn() {
         if UserDefaults.standard.isLoggedIn() {
             let rootController = UIApplication.shared.keyWindow?.rootViewController
-            
             guard let mainNavController = rootController as? MainNavigationController  else {
                 return
             }
+            
             let layout = UICollectionViewFlowLayout()
             let homeController = HomeController(collectionViewLayout: layout)
             mainNavController.viewControllers = [homeController]

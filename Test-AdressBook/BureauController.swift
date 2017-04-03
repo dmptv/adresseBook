@@ -11,6 +11,8 @@ import UIKit
 class BureauController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     let employerId = "employerId"
+    let headerId = "headerId"
+    
     let refresher = UIRefreshControl()
     
     var dataSource = [Employer]()
@@ -23,7 +25,6 @@ class BureauController: UICollectionViewController, UICollectionViewDelegateFlow
                 employer.ID = office.ID
                 dataSource.append(employer)
             }
-            
             DispatchQueue.main.async {
                 self.collectionView?.reloadData()
             }
@@ -38,7 +39,6 @@ class BureauController: UICollectionViewController, UICollectionViewDelegateFlow
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupCollectionView()
     }
     
@@ -51,6 +51,7 @@ class BureauController: UICollectionViewController, UICollectionViewDelegateFlow
         collectionView?.alwaysBounceVertical = true
         
         collectionView?.register(EmployeesCell.self, forCellWithReuseIdentifier: employerId)
+         collectionView?.register(EmployeesHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
     }
     
     func loadData() {
@@ -79,10 +80,21 @@ class BureauController: UICollectionViewController, UICollectionViewDelegateFlow
         return 8
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 25)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! EmployeesHeader
+        return header
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         detailLauncher.employer = dataSource[indexPath.item]
         detailLauncher.showSettings()
     }
+
+ 
 
 }
 

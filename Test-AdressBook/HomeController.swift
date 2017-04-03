@@ -43,7 +43,7 @@ class HomeController:  UICollectionViewController, UICollectionViewDelegateFlowL
         super.viewDidLoad()
                         
         navigationItem.title = "Все"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogout))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogout))
         navigationItem.leftBarButtonItem?.tintColor = brounColor
         
         setupCollectionView()
@@ -116,35 +116,38 @@ class HomeController:  UICollectionViewController, UICollectionViewDelegateFlowL
         return 0
     }
     
-    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let office: Officce = dataSource[indexPath.item]
         
         if (office.Employees != nil) { // it ofice, test 3
             let layout = UICollectionViewFlowLayout()
             let employeesController = EmployeesController(collectionViewLayout: layout)
             employeesController.office = office
-            
             navigationController?.pushViewController(employeesController, animated: true)
-            
             
         } else if  (office.Employees == nil) && (office.Departments == nil) { // tets 1 + 2 грузина
             let layout = UICollectionViewFlowLayout()
             let bureauController = BureauController(collectionViewLayout: layout)
             bureauController.office = office
-            
             navigationController?.pushViewController(bureauController, animated: true)
 
         } else {
             let layout = UICollectionViewFlowLayout()
             let aviaController = AviaController(collectionViewLayout: layout)
             aviaController.office = dataSource[indexPath.item]
-                
             navigationController?.pushViewController(aviaController, animated: true)
         }
     }
+  
 }
+
+
+
+
+
+
+
+
 
 
 

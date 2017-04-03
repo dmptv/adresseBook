@@ -49,13 +49,27 @@ class LoginCell: UICollectionViewCell, UITextFieldDelegate {
     func handleLogin() {
         guard let login = loginTextfield.text, let password = passwordTextfield.text else {return}
         
+        //MARK: - Fetching
+        
         ApiService.shared.fetchAutorization(login: login, password: password) { (successe) in
-            UserDefaults.standard.setIsLoggedIn(value: successe)
-            UserDefaults.standard.saveLoginPassword(login: login, password: password)
             
-            print(login, password)
+            if successe {
+                UserDefaults.standard.setIsLoggedIn(value: successe)
+                UserDefaults.standard.saveLoginPassword(login: login, password: password)
+                self.delegate?.finishLoggingIn()
+                
+            } else {
+                var topVC = UIApplication.shared.keyWindow?.rootViewController
+                while topVC?.presentedViewController != nil {
+                    topVC = topVC!.presentedViewController
+                }
+                
+                let loginAlert = UIAlertController.init(title: "Login error", message: "Login or password not valid", preferredStyle: .alert)
+                let action = UIAlertAction.init(title: "OK", style: .cancel, handler: nil)
+                loginAlert.addAction(action)
+                topVC?.present(loginAlert, animated: true, completion: nil)
+            }
             
-            self.delegate?.finishLoggingIn()
         }
     }
     

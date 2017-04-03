@@ -9,7 +9,8 @@
 import UIKit
 import SDWebImage
 
- let blueColor = UIColor(r: 61, g: 167, b: 244)
+let blueColor = UIColor(r: 61, g: 167, b: 244)
+let loginColor = UIColor(r: 122, g: 83, b: 115)
 
 class EmployeesCell: BaseCell {
     var employer: Employer? {
@@ -23,8 +24,6 @@ class EmployeesCell: BaseCell {
                 let urlString = "https://contact.taxsee.com/Contacts.svc/GetWPhoto?login=\(login)&password=\(password)&id=\(ID)"
                 guard let url = URL(string: urlString) else {return}
                 profileImageView.sd_setImage(with: url)
-                
-                self.setNeedsDisplay()
             }
         }
     }

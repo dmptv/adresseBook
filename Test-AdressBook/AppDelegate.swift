@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // back bar button
         UINavigationBar.appearance().barStyle = UIBarStyle.default
-        UINavigationBar.appearance().tintColor = UIColor(r: 91, g: 14, b: 13)
+        UINavigationBar.appearance().tintColor = brounColor
         
         // nav title
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor(r: 91, g: 14, b: 13)]

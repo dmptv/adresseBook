@@ -14,6 +14,8 @@
 		0F0348921E8EC5610005EE1D /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0348911E8EC5610005EE1D /* DetailView.swift */; };
 		0F0348951E8EF0EC0005EE1D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F0348941E8EF0EC0005EE1D /* MessageUI.framework */; };
 		0F16DC771E8FF3B7000698D4 /* podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0F16DC761E8FF3B7000698D4 /* podfile */; };
+		0F16DC791E90A025000698D4 /* DetailLauncher + Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F16DC781E90A025000698D4 /* DetailLauncher + Constraints.swift */; };
+		0F1B54391E9108C90008CF90 /* SLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1B54371E9108C90008CF90 /* SLImageView.swift */; };
 		0F42805A1E8938810013F352 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4280591E8938810013F352 /* AppDelegate.swift */; };
 		0F42805C1E8938810013F352 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42805B1E8938810013F352 /* LoginController.swift */; };
 		0F42805F1E8938810013F352 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F42805D1E8938810013F352 /* Main.storyboard */; };
@@ -38,10 +40,13 @@
 		0F0348811E8CFEC90005EE1D /* BureauController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BureauController.swift; sourceTree = "<group>"; };
 		0F0348831E8D0BE20005EE1D /* EmployeesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeesCell.swift; sourceTree = "<group>"; };
 		0F0348851E8E10670005EE1D /* AviaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AviaController.swift; sourceTree = "<group>"; };
-		0F0348871E8E45DE0005EE1D /* EmployeesCell + Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EmployeesCell + Constraints.swift"; sourceTree = "<group>"; };
+		0F0348871E8E45DE0005EE1D /* EmployeesCell + Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "EmployeesCell + Constraints.swift"; path = "../EmployeesCell + Constraints.swift"; sourceTree = "<group>"; };
 		0F0348911E8EC5610005EE1D /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		0F0348941E8EF0EC0005EE1D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		0F16DC761E8FF3B7000698D4 /* podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = podfile; sourceTree = "<group>"; };
+		0F16DC781E90A025000698D4 /* DetailLauncher + Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DetailLauncher + Constraints.swift"; sourceTree = "<group>"; };
+		0F1B54371E9108C90008CF90 /* SLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLImageView.swift; sourceTree = "<group>"; };
+		0F1B54381E9108C90008CF90 /* SLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLImageView.h; sourceTree = "<group>"; };
 		0F4280561E8938810013F352 /* Test-AdressBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-AdressBook.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F4280591E8938810013F352 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F42805B1E8938810013F352 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -131,9 +136,11 @@
 				0F42805B1E8938810013F352 /* LoginController.swift */,
 				0F42806E1E893DB40013F352 /* HomeController.swift */,
 				0FC22D3E1E8B7ACE00D1B8AC /* Employees Controller.swift */,
+				0F0348871E8E45DE0005EE1D /* EmployeesCell + Constraints.swift */,
 				0F0348811E8CFEC90005EE1D /* BureauController.swift */,
 				0F0348851E8E10670005EE1D /* AviaController.swift */,
 				0F0348911E8EC5610005EE1D /* DetailView.swift */,
+				0F16DC781E90A025000698D4 /* DetailLauncher + Constraints.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -143,7 +150,8 @@
 			children = (
 				0F4280711E8942EF0013F352 /* Extension + UIView.swift */,
 				0F42807B1E8A8B040013F352 /* Extension + UserDefaults.swift */,
-				0F0348871E8E45DE0005EE1D /* EmployeesCell + Constraints.swift */,
+				0F1B54371E9108C90008CF90 /* SLImageView.swift */,
+				0F1B54381E9108C90008CF90 /* SLImageView.h */,
 			);
 			name = Extentions;
 			path = ..;
@@ -310,9 +318,11 @@
 				0F4280721E8942EF0013F352 /* Extension + UIView.swift in Sources */,
 				0F42806F1E893DB40013F352 /* HomeController.swift in Sources */,
 				0FC22D3F1E8B7ACE00D1B8AC /* Employees Controller.swift in Sources */,
+				0F16DC791E90A025000698D4 /* DetailLauncher + Constraints.swift in Sources */,
 				0F4280751E895C680013F352 /* PageCell.swift in Sources */,
 				0F42807A1E8A27080013F352 /* LoginCell.swift in Sources */,
 				0F42806D1E8939130013F352 /* MainNavigationController.swift in Sources */,
+				0F1B54391E9108C90008CF90 /* SLImageView.swift in Sources */,
 				0F8692FC1E8B9D5F00318757 /* Department.swift in Sources */,
 				0F0348921E8EC5610005EE1D /* DetailView.swift in Sources */,
 				0F42807E1E8AA2120013F352 /* Logged.swift in Sources */,
@@ -451,7 +461,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ak.freelance.Test-AdressBook";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -466,7 +476,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ak.freelance.Test-AdressBook";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

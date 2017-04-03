@@ -9,13 +9,13 @@
 import UIKit
 import MessageUI
 
-
 class DetailLauncher: NSObject, MFMailComposeViewControllerDelegate {
     
-    var employeesController: EmployeesController?
-    var bureauController: BureauController?
-   
+    weak var employeesController: EmployeesController?
+    weak var bureauController: BureauController?
+        
     let cellID = "cellID"
+    let blackView = UIView()
     
     var employer: Employer? {
         didSet {
@@ -24,6 +24,7 @@ class DetailLauncher: NSObject, MFMailComposeViewControllerDelegate {
                 titleLabel.text = employer.Title
                 emailButton.setTitle(employer.Email, for: .normal)
                 phoneButton.setTitle(employer.Phone, for: .normal)
+                
                 let loginPassword = UserDefaults.standard.getLoginPassword()
                 guard let login = loginPassword.login, let password = loginPassword.password else {return}
                 let urlString = "https://contact.taxsee.com/Contacts.svc/GetWPhoto?login=\(login)&password=\(password)&id=\(ID)"
@@ -34,8 +35,6 @@ class DetailLauncher: NSObject, MFMailComposeViewControllerDelegate {
             }
         }
     }
-    
-    let blackView = UIView()
     
     let backButton: UIButton = {
         let button = UIButton()
@@ -50,14 +49,14 @@ class DetailLauncher: NSObject, MFMailComposeViewControllerDelegate {
         return button
     }()
     
-    let profileImageView: UIImageView = {
-        let iv = UIImageView()
+    let profileImageView: SLImageView = {
+        let iv = SLImageView(frame: .zero)
         iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 5
         iv.clipsToBounds = true
         return iv
     }()
-    
+
     let nameLabel: UILabel = {
         let lb = UILabel()
         lb.font = UIFont(name: "Georgia-Bold", size: 16)
@@ -96,6 +95,9 @@ class DetailLauncher: NSObject, MFMailComposeViewControllerDelegate {
         button.layer.cornerRadius = 5
         button.layer.borderColor = blueColor.cgColor
         button.layer.borderWidth = 1
+        button.setImage( #imageLiteral(resourceName: "mail"), for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
         return button
     }()
 
@@ -108,6 +110,9 @@ class DetailLauncher: NSObject, MFMailComposeViewControllerDelegate {
         button.layer.cornerRadius = 5
         button.layer.borderColor = blueColor.cgColor
         button.layer.borderWidth = 1
+        button.setImage( #imageLiteral(resourceName: "123"), for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
         return button
     }()
 
@@ -115,19 +120,16 @@ class DetailLauncher: NSObject, MFMailComposeViewControllerDelegate {
         if let window = UIApplication.shared.keyWindow {
             blackView.backgroundColor = .white
             blackView.frame = CGRect(x: window.frame.width - 10, y: window.frame.height - 10, width: 10, height: 10)
-            
             window.addSubview(blackView)
-          
             setSubViews(superView: window)
             
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                
                 self.blackView.frame = window.frame
                 
             }, completion: { (completedAnimation) in})
         }
     }
-
+  
     func handleDismiss() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
@@ -140,113 +142,7 @@ class DetailLauncher: NSObject, MFMailComposeViewControllerDelegate {
             self.blackView.removeFromSuperview()
         }
     }
-    
-    func getResponderController() -> UIViewController? {
-        var topVC = UIApplication.shared.keyWindow?.rootViewController
-        while topVC?.presentedViewController != nil {
-            topVC = topVC!.presentedViewController
-        }
-        return topVC
-    }
-    
-    func handleEmailSend() {
-        let mailCompose = MFMailComposeViewController()
-        mailCompose.mailComposeDelegate = self
-        guard let text = emailButton.titleLabel?.text else {return}
-        mailCompose.setToRecipients([text])
-        mailCompose.setSubject("Test")
-        mailCompose.setMessageBody("Hi", isHTML: false)
-        
-        if MFMailComposeViewController.canSendMail() {
-            let topVC = getResponderController()
-            topVC?.present(mailCompose, animated: true, completion: {
-                
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                    self.blackView.alpha = 0
-                    
-                }, completion: nil)
-            })
-            
-        } else {
-            let emailAlert = UIAlertController.init(title: "Email Alert", message: "can't send email", preferredStyle: .alert)
-            let action = UIAlertAction.init(title: "OK", style: .cancel, handler: nil)
-            emailAlert.addAction(action)
-            
-            let topVC = getResponderController()
-            topVC?.present(emailAlert, animated: true, completion: nil)
-        }
-    }
-    
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        
-        switch result.rawValue {
-        case MFMailComposeResult.cancelled.rawValue:
-            print("cancel mail")
-        case MFMailComposeResult.saved.rawValue:
-            print("saved mail")
-        case MFMailComposeResult.failed.rawValue:
-            print("faild send")
-        case MFMailComposeResult.sent.rawValue:
-            print("sent mail")
-        default: break
-        }
-        
-        let topVC = getResponderController()
-        topVC?.dismiss(animated: true, completion: {
-            
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                
-                self.blackView.alpha = 1
-                self.blackView.layoutSubviews()
-            }, completion: nil)
-        })
-     }
-    
-    func handlePhoneCall() {
-        let url = URL(string: "tel://" + (phoneButton.titleLabel?.text)!)
-        UIApplication.shared.openURL(url!)
-        
-        if let url = NSURL(string: "tel://\(phoneButton.titleLabel?.text)"), UIApplication.shared.canOpenURL(url as URL) {
-            UIApplication.shared.openURL(url as URL)
-        }
-    }
-    
-    func setSubViews(superView: UIView) {
-        
-        blackView.addSubview(backButton)
-        blackView.addSubview(profileImageView)
-        blackView.addSubview(nameLabel)
-        blackView.addSubview(titleLabel)
-        blackView.addSubview(emailLabel)
-        blackView.addSubview(phoneLabel)
-        blackView.addSubview(emailButton)
-        blackView.addSubview(phoneButton)
-        
-        _ = backButton.anchor(top: superView.topAnchor, left: superView.leftAnchor, bottom: nil, right: nil, topConstant: 26, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 70, heightConstant: 26)
-        
-        let height = (superView.frame.width - 12 - 12) * 9 / 16
-        
-        _ = profileImageView.anchor(top: backButton.bottomAnchor, left: superView.leftAnchor, bottom: nil, right: superView.rightAnchor, topConstant: 20, leftConstant: 12, bottomConstant: 0, rightConstant: 12, widthConstant: 0, heightConstant: height)
-        
-        _ = nameLabel.anchor(top: profileImageView.bottomAnchor, left: profileImageView.leftAnchor, bottom: nil, right: profileImageView.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 20)
-        
-        _ = titleLabel.anchor(top: nameLabel.bottomAnchor, left: nameLabel.leftAnchor, bottom: nil, right: nameLabel.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 34)
-        
-        _ = emailLabel.anchor(top: titleLabel.bottomAnchor, left: titleLabel.leftAnchor, bottom: nil, right: nil, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 8, widthConstant: 50, heightConstant: 20)
-        
-        _ = phoneLabel.anchor(top: emailLabel.bottomAnchor, left: emailLabel.leftAnchor, bottom: nil, right: nil, topConstant: 40, leftConstant: 0, bottomConstant: 0, rightConstant: 8, widthConstant: 50, heightConstant: 20)
-        
-        _ = emailButton.anchor(top: emailLabel.topAnchor, left: emailLabel.rightAnchor, bottom: nil, right: titleLabel.rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 26)
-        
-        _ = phoneButton.anchor(top: phoneLabel.topAnchor, left: emailButton.leftAnchor, bottom: nil, right: emailButton.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 26)
-        
-        backButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-        emailButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleEmailSend)))
-        phoneButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handlePhoneCall)))
-    }
 
-
-    
 }
 
 

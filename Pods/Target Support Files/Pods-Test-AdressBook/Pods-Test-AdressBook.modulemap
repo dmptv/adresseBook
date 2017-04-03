@@ -1,0 +1,6 @@
+framework module Pods_Test_AdressBook {
+  umbrella header "Pods-Test-AdressBook-umbrella.h"
+
+  export *
+  module * { export * }
+}

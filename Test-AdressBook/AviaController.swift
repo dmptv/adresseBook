@@ -109,6 +109,8 @@ class AviaController: UICollectionViewController, UICollectionViewDelegateFlowLa
             navigationController?.pushViewController(aviaController, animated: true)
         }
     }
+    
+
 
 }
 

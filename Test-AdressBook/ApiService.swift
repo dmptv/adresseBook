@@ -66,8 +66,18 @@ class ApiService: NSObject {
                 let json = try JSONSerialization.jsonObject(with: unwrappedData, options: .mutableContainers) as! [String: Any]
         
                 if let success = json["Success"] as? Bool {
-                    completion(success)
+                    if success == true {
+                        completion(success)
+                    } else {
+                        DispatchQueue.main.async {
+                            completion(success)
+                        }
+                        
+                    }
+                   
                 }
+                
+                
                 
             } catch let jsonError {
                 print(jsonError)
